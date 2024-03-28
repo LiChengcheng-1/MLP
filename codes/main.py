@@ -61,7 +61,7 @@ def main(num_model,model):
     criterion = torch.nn.MSELoss(reduction='mean')
     #hyperparameters
     epoch = 100
-
+    
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1, nesterov=True, momentum=0.9)
     early_stopping = EarlyStopping(patience=5)
     running_loss_array = np.array([])
@@ -69,9 +69,7 @@ def main(num_model,model):
 
     for epoch in range(1,epoch+1):
         adjust_lr(epoch,optimizer)
-
         running_loss= train_model(model,criterion,optimizer)
-
         val_loss, val_loss_aray= validation(model,criterion)
 
         running_loss_array= np.append(running_loss_array, running_loss)
@@ -100,11 +98,9 @@ def multi_train(inputs_size):
             best_loss = test_loss
             best_model = num_model
     print(f"The best model is {best_model} with test loss {best_loss}")
-    model.load_state_dict(torch.load(f'checkpoint/checkpoint_{best_model}.pt'))
+    model.load_state_dict(torch.load(f'../checkpoint/checkpoint_{best_model}.pt'))
 
     prediction_label_view(model, test_loader)
-    # loss_view(running_loss_array, val_loss_aray)
-
 
 if __name__ == '__main__':
     multi_train(inputs_size)
