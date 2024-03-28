@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+# data source comes from :https://github.com/Bjarten/early-stopping-pytorch.git
 
 class EarlyStopping:
     """Early stops the training if validation loss doesn't improve after a given patience."""
