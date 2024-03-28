@@ -1,48 +1,12 @@
 import torch
 import numpy as np
-from codes.earlystopping import EarlyStopping
-from data.data_process import dataset_train,dataset_test,dataset_val,inputs_size
+from src.earlystopping import EarlyStopping
+from src.data_process import dataset_train,dataset_test,dataset_val,inputs_size
 from torch.utils.data import DataLoader
-from codes.model import Model
-from utility import loss_view,prediction_label_view,adjust_lr
-
-
-#load data
-train_loader = DataLoader(dataset=dataset_train,batch_size=170,shuffle=True)
-test_loader = DataLoader(dataset=dataset_test,batch_size=170,shuffle=False)
-validation_loader = DataLoader(dataset=dataset_val,batch_size=170,shuffle=False)
-
-
-
-#training model
-def train_model(model,criterion,optimizer,train_loader):
-    model.train()
-    running_loss = 0.0
-    for _,data in enumerate(train_loader):
-        inputs,labels = data
-        y_pred = model(inputs)
-        loss = criterion(y_pred,labels)
-        optimizer.zero_grad()
-        loss.backward()
-
-        optimizer.step()
-        running_loss += loss.item()
-    running_loss = running_loss/len(train_loader)
-    return running_loss
-
-#validation
-def validation(model,criterion,validation_loader):
-    model.eval()
-    val_loss_aray = np.array([])
-    val_loss=0.0
-    for _,data in enumerate(validation_loader):
-        validation_x,validation_y = data
-        val_y_pred = model(validation_x)
-        loss = criterion(val_y_pred , validation_y)
-        val_loss += loss.item()
-        val_loss_aray = np.append(val_loss_aray, loss.item())
-    val_loss = val_loss/len(validation_loader)
-    return val_loss, val_loss_aray
+from src.model import Model
+from plot import prediction_label_view
+from train import train
+from validation import validation
 
 #test
 def test(model,criterion):
@@ -57,11 +21,21 @@ def test(model,criterion):
         test_loss = test_loss/len(test_loader)
     return test_loss
 
-def main(num_model,model):
-    criterion = torch.nn.MSELoss(reduction='mean')
+
+def adjust_lr(epoch,optimizer):
+    # optimize lr
+    step = [10, 20, 30, 40]
+    base_lr = 0.1
+    lr = base_lr * (0.1 ** np.sum(epoch >= np.array(step)))
+    for params_group in optimizer.param_groups:
+        params_group['lr'] = lr
+    return lr
+
+
+def main(num_model,model,adjust_lr):
     #hyperparameters
     epoch = 100
-
+    criterion = torch.nn.MSELoss(reduction='mean')
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1, nesterov=True, momentum=0.9)
     early_stopping = EarlyStopping(patience=5)
     running_loss_array = np.array([])
@@ -70,9 +44,8 @@ def main(num_model,model):
     for epoch in range(1,epoch+1):
         adjust_lr(epoch,optimizer)
 
-        running_loss= train_model(model,criterion,optimizer)
-
-        val_loss, val_loss_aray= validation(model,criterion)
+        running_loss= train(model,criterion,optimizer,train_loader)
+        val_loss, val_loss_aray= validation(model,criterion,validation_loader)
 
         running_loss_array= np.append(running_loss_array, running_loss)
         early_stopping(val_loss, model)
@@ -100,11 +73,15 @@ def multi_train(inputs_size):
             best_loss = test_loss
             best_model = num_model
     print(f"The best model is {best_model} with test loss {best_loss}")
-    model.load_state_dict(torch.load(f'checkpoint/checkpoint_{best_model}.pt'))
+    model.load_state_dict(torch.load(f'../checkpoint/checkpoint_{best_model}.pt'))
 
     prediction_label_view(model, test_loader)
     # loss_view(running_loss_array, val_loss_aray)
 
+#load data
+train_loader = DataLoader(dataset=dataset_train,batch_size=170,shuffle=True)
+test_loader = DataLoader(dataset=dataset_test,batch_size=170,shuffle=False)
+validation_loader = DataLoader(dataset=dataset_val,batch_size=170,shuffle=False)
 
 if __name__ == '__main__':
     multi_train(inputs_size)

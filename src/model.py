@@ -2,7 +2,7 @@ import torch
 from sklearn.neural_network import MLPRegressor
 
 
-class Model(torch.nn.Module,MLPRegressor):
+class Model(torch.nn.Module):
     def __init__(self,inputs_size):
         super(Model,self).__init__()
         self.linear1 = torch.nn.Linear(inputs_size, 20)

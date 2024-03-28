@@ -1,9 +1,9 @@
 import optuna
 from model import Model
-from data.data_process import inputs_size
+from src.data_process import inputs_size
 import torch.optim as optim
 import torch
-from data.data_process import dataset_train,dataset_val
+from src.data_process import dataset_train,dataset_val
 from torch.utils.data import DataLoader
 from main import train_model,validation
 
