@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import Dataset,DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from codes.dataset import MLPDataset
+from src.dataset import MLPDataset
 import numpy as np
 
 #according to the EDA's visualization, we process the data

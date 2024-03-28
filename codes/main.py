@@ -1,10 +1,10 @@
 import torch
 import numpy as np
-from codes.earlystopping import EarlyStopping
-from data.data_process import dataset_train,dataset_test,dataset_val,inputs_size
+from src.earlystopping import EarlyStopping
+from src.data_process import dataset_train,dataset_test,dataset_val,inputs_size
 from torch.utils.data import DataLoader
-from codes.model import Model
-from utility import loss_view,prediction_label_view,adjust_lr
+from src.model import Model
+from utility import prediction_label_view,adjust_lr
 
 
 #load data
