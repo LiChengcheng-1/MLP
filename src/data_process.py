@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import Dataset,DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from codes.dataset import MLPDataset
+from src.dataset import MLPDataset
 import numpy as np
 
 #according to the EDA's visualization, we process the data
@@ -45,18 +45,13 @@ scaler_input = MinMaxScaler(feature_range=(0, 1))
 scaler_label = MinMaxScaler(feature_range=(0, 1))
 
 X_train_fit =scaler_input.fit(X_train)
-X_train =scaler_input.transform(X_train)
 y_train_fit =scaler_label.fit(y_train)
+
+X_train =scaler_input.transform(X_train)
 y_train =scaler_label.transform(y_train)
-
-X_val_fit =scaler_input.fit(X_val)
 X_val =scaler_input.transform(X_val)
-y_val_fit =scaler_label.fit(y_val)
 y_val =scaler_label.transform(y_val)
-
-X_test_fit =scaler_input.fit(X_test)
 X_test =scaler_input.transform(X_test)
-y_test_fit =scaler_label.fit(y_test)
 y_test =scaler_label.transform(y_test)
 
 
