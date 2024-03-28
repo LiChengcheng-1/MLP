@@ -98,7 +98,7 @@ def multi_train(inputs_size):
             best_loss = test_loss
             best_model = num_model
     print(f"The best model is {best_model} with test loss {best_loss}")
-    model.load_state_dict(torch.load(f'checkpoint/checkpoint_{best_model}.pt'))
+    model.load_state_dict(torch.load(f'../checkpoint/checkpoint_{best_model}.pt'))
 
     prediction_label_view(model, test_loader)
 
