@@ -31,3 +31,7 @@ def prediction_label_view(model,test_loader,timestamp):
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
