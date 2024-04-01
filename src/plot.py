@@ -2,16 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-def loss_view(running_loss,val_loss):
+def loss_view(running_loss,val_loss,timestamp):
     plt.plot(running_loss, label='Loss')
     plt.plot(val_loss, label='Validation Loss')
     plt.xlabel('epochs')
     plt.ylabel('loss')
     plt.grid()
     plt.legend()
-    plt.show()
+    plt.close()
+    plt.savefig(f'../checkpoint/{timestamp}')
 
-def prediction_label_view(model,test_loader):
+def prediction_label_view(model,test_loader,timestamp):
     prediction=np.array([])
     label =np.array([])
     with torch.no_grad():
@@ -25,7 +26,8 @@ def prediction_label_view(model,test_loader):
     plt.ylabel('value')
     plt.grid()
     plt.legend()
-    plt.show()
+    plt.close()
+    plt.savefig(f'../checkpoint/{timestamp}')
 
 
 
