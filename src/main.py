@@ -55,7 +55,7 @@ def adjust_lr(epoch,optimizer):
     # optimize lr
     step = [10, 20, 30, 40]
     base_lr = 0.1
->>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
+
     lr = base_lr * (0.1 ** np.sum(epoch >= np.array(step)))
     for params_group in optimizer.param_groups:
         params_group['lr'] = lr
@@ -103,7 +103,7 @@ def main(num_model,model,adjust_lr):
         running_loss= train(model,criterion,optimizer,train_loader)
         val_loss, val_loss_aray= validation(model,criterion,validation_loader)
 
->>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
+
         running_loss_array= np.append(running_loss_array, running_loss)
         early_stopping(val_loss, model)
         if val_loss < best_loss:
@@ -112,7 +112,7 @@ def main(num_model,model,adjust_lr):
             torch.save(model.state_dict(), f'../checkpoint/{timestamp}/checkpoint.pt')
 =======
             torch.save(model.state_dict(), f'../checkpoint/checkpoint_{num_model}.pt')
->>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
+
         if early_stopping.early_stop:
             print("Early stopping")
             break
@@ -179,4 +179,4 @@ validation_loader = DataLoader(dataset=dataset_val,batch_size=170,shuffle=False)
 
 if __name__ == '__main__':
     multi_train(inputs_size)
->>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
+
