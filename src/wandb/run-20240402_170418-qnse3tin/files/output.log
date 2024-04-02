@@ -1,0 +1,23 @@
+The 4 minute model's trainning process
+epoch=1 , running loss= 0.1108
+epoch=2 , running loss= 0.0986
+epoch=3 , running loss= 0.0809
+epoch=4 , running loss= 0.0699
+epoch=5 , running loss= 0.0524
+epoch=6 , running loss= 0.0196
+EarlyStopping counter: 1 out of 5
+epoch=7 , running loss= 0.0066
+EarlyStopping counter: 2 out of 5
+epoch=8 , running loss= 0.0121
+epoch=9 , running loss= 0.0064
+epoch=10 , running loss= 0.0043
+EarlyStopping counter: 1 out of 5
+epoch=11 , running loss= 0.0043
+EarlyStopping counter: 2 out of 5
+epoch=12 , running loss= 0.0045
+EarlyStopping counter: 3 out of 5
+epoch=13 , running loss= 0.0043
+EarlyStopping counter: 4 out of 5
+epoch=14 , running loss= 0.0046
+EarlyStopping counter: 5 out of 5
+Early stopping

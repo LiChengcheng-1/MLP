@@ -1,0 +1,77 @@
+2024-04-02 18:02:39,601 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Current SDK version is 0.16.5
+2024-04-02 18:02:39,601 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Configure stats pid to 2444
+2024-04-02 18:02:39,602 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Loading settings from C:\Users\¿Ó≥–≥œ\.config\wandb\settings
+2024-04-02 18:02:39,602 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Loading settings from E:\lesson\MLP\MLP_Test Task\src\wandb\settings
+2024-04-02 18:02:39,602 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-04-02 18:02:39,602 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-04-02 18:02:39,603 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'src\\main.py', 'program_abspath': 'E:\\lesson\\MLP\\MLP_Test Task\\src\\main.py', 'program': 'E:\\lesson\\MLP\\MLP_Test Task\\src\\main.py'}
+2024-04-02 18:02:39,603 INFO    MainThread:2444 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-04-02 18:02:39,603 INFO    MainThread:2444 [wandb_init.py:_log_setup():527] Logging user logs to E:\lesson\MLP\MLP_Test Task\src\wandb\run-20240402_180239-0mypi722\logs\debug.log
+2024-04-02 18:02:39,604 INFO    MainThread:2444 [wandb_init.py:_log_setup():528] Logging internal logs to E:\lesson\MLP\MLP_Test Task\src\wandb\run-20240402_180239-0mypi722\logs\debug-internal.log
+2024-04-02 18:02:39,604 INFO    MainThread:2444 [wandb_init.py:init():567] calling init triggers
+2024-04-02 18:02:39,604 INFO    MainThread:2444 [wandb_init.py:init():574] wandb.init called with sweep_config: {}
+config: {}
+2024-04-02 18:02:39,604 INFO    MainThread:2444 [wandb_init.py:init():592] re-initializing run, found existing run on stack: h9or3j23
+2024-04-02 18:02:39,604 INFO    MainThread:2444 [wandb_run.py:_finish():2052] finishing run duisburg-essen-university/MLP/h9or3j23
+2024-04-02 18:02:39,605 INFO    MainThread:2444 [wandb_run.py:_atexit_cleanup():2292] got exitcode: 0
+2024-04-02 18:02:39,605 INFO    MainThread:2444 [wandb_run.py:_restore():2275] restore
+2024-04-02 18:02:39,605 INFO    MainThread:2444 [wandb_run.py:_restore():2281] restore done
+2024-04-02 18:02:50,757 INFO    MainThread:2444 [wandb_run.py:_footer_history_summary_info():3920] rendering history
+2024-04-02 18:02:50,758 INFO    MainThread:2444 [wandb_run.py:_footer_history_summary_info():3952] rendering summary
+2024-04-02 18:02:50,781 INFO    MainThread:2444 [wandb_run.py:_footer_sync_info():3879] logging synced files
+2024-04-02 18:02:50,797 INFO    MainThread:2444 [wandb_init.py:init():617] starting backend
+2024-04-02 18:02:50,797 INFO    MainThread:2444 [wandb_init.py:init():621] setting up manager
+2024-04-02 18:02:50,804 INFO    MainThread:2444 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2024-04-02 18:02:50,805 INFO    MainThread:2444 [wandb_init.py:init():629] backend started and connected
+2024-04-02 18:02:50,816 INFO    MainThread:2444 [wandb_init.py:init():721] updated telemetry
+2024-04-02 18:02:50,939 INFO    MainThread:2444 [wandb_init.py:init():754] communicating run to backend with 90.0 second timeout
+2024-04-02 18:02:53,075 WARNING MainThread:2444 [wandb_init.py:init():1209] interrupted
+Traceback (most recent call last):
+  File "E:\anaconda3\envs\MLP\lib\configparser.py", line 789, in get
+    value = d[option]
+  File "E:\anaconda3\envs\MLP\lib\collections\__init__.py", line 898, in __getitem__
+    return self.__missing__(key)            # support subclasses that define __missing__
+  File "E:\anaconda3\envs\MLP\lib\collections\__init__.py", line 890, in __missing__
+    raise KeyError(key)
+KeyError: 'project'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\old\settings.py", line 40, in get
+    return self._local_settings.get(section, key)
+  File "E:\anaconda3\envs\MLP\lib\configparser.py", line 792, in get
+    raise NoOptionError(option, section)
+configparser.NoOptionError: No option 'project' in section: 'default'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_init.py", line 1187, in init
+    run = wi.init()
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_init.py", line 801, in init
+    run._set_run_obj(run_result.run)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_run.py", line 1558, in _set_run_obj
+    tags=dict(self._settings),
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_settings.py", line 1476, in __getitem__
+    return item.value
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_settings.py", line 528, in value
+    _value = h(_value)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_settings.py", line 893, in <lambda>
+    run_url={"hook": lambda _: self._run_url(), "auto_hook": True},
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_settings.py", line 1294, in _run_url
+    query = self._get_url_query_string()
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_settings.py", line 1265, in _get_url_query_string
+    if Api().settings().get("anonymous") != "true":
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\apis\internal.py", line 98, in settings
+    return self.api.settings(*args, **kwargs)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\apis\internal.py", line 39, in api
+    self._api = InternalApi(*self._api_args, **self._api_kwargs)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\internal\internal_api.py", line 283, in __init__
+    url=f"{self.settings('base_url')}/graphql",
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\internal\internal_api.py", line 450, in settings
+    self._settings.get(
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\old\settings.py", line 41, in get
+    except configparser.NoOptionError:
+KeyboardInterrupt
+2024-04-02 18:02:58,070 WARNING MsgRouterThr:2444 [router.py:message_loop():77] message_loop has been closed

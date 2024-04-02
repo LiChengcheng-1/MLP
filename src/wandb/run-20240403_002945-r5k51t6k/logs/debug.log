@@ -1,0 +1,35 @@
+2024-04-03 00:29:45,045 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Current SDK version is 0.16.5
+2024-04-03 00:29:45,047 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Configure stats pid to 11844
+2024-04-03 00:29:45,047 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Loading settings from C:\Users\¿Ó≥–≥œ\.config\wandb\settings
+2024-04-03 00:29:45,047 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Loading settings from E:\lesson\MLP\MLP_Test Task\src\wandb\settings
+2024-04-03 00:29:45,048 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'MLP', 'entity': 'duisburg-essen-university', 'root_dir': 'E:\\lesson\\MLP\\MLP_Test Task\\src', 'run_id': 'r5k51t6k', 'sweep_param_path': 'E:\\lesson\\MLP\\MLP_Test Task\\src\\wandb\\sweep-xdxqcqwa\\config-r5k51t6k.yaml', 'sweep_id': 'xdxqcqwa'}
+2024-04-03 00:29:45,050 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-04-03 00:29:45,050 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'src\\train.py', 'program_abspath': 'E:\\lesson\\MLP\\MLP_Test Task\\src\\train.py', 'program': 'E:\\lesson\\MLP\\MLP_Test Task\\src\\train.py'}
+2024-04-03 00:29:45,051 INFO    Thread-235:11844 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-04-03 00:29:45,052 INFO    Thread-235:11844 [wandb_init.py:_log_setup():527] Logging user logs to E:\lesson\MLP\MLP_Test Task\src\wandb\run-20240403_002945-r5k51t6k\logs\debug.log
+2024-04-03 00:29:45,053 INFO    Thread-235:11844 [wandb_init.py:_log_setup():528] Logging internal logs to E:\lesson\MLP\MLP_Test Task\src\wandb\run-20240403_002945-r5k51t6k\logs\debug-internal.log
+2024-04-03 00:29:45,053 INFO    Thread-235:11844 [wandb_init.py:init():567] calling init triggers
+2024-04-03 00:29:45,053 INFO    Thread-235:11844 [wandb_init.py:init():574] wandb.init called with sweep_config: {'batch_size': 170, 'epochs': 10, 'hidden_size': 30, 'learning_rate': 0.1}
+config: {}
+2024-04-03 00:29:45,054 INFO    Thread-235:11844 [wandb_init.py:init():617] starting backend
+2024-04-03 00:29:45,054 INFO    Thread-235:11844 [wandb_init.py:init():621] setting up manager
+2024-04-03 00:29:45,091 INFO    Thread-235:11844 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2024-04-03 00:29:45,093 INFO    Thread-235:11844 [wandb_init.py:init():629] backend started and connected
+2024-04-03 00:29:45,125 INFO    Thread-235:11844 [wandb_run.py:_config_callback():1347] config_cb None None {'batch_size': 170, 'epochs': 10, 'hidden_size': 30, 'learning_rate': 0.1}
+2024-04-03 00:29:45,125 INFO    Thread-235:11844 [wandb_init.py:init():721] updated telemetry
+2024-04-03 00:29:45,236 INFO    Thread-235:11844 [wandb_init.py:init():754] communicating run to backend with 90.0 second timeout
+2024-04-03 00:29:46,369 INFO    Thread-235:11844 [wandb_run.py:_on_init():2344] communicating current version
+2024-04-03 00:29:47,365 INFO    Thread-235:11844 [wandb_run.py:_on_init():2353] got version response 
+2024-04-03 00:29:47,366 INFO    Thread-235:11844 [wandb_init.py:init():805] starting run threads in backend
+2024-04-03 00:29:56,025 INFO    Thread-235:11844 [wandb_run.py:_console_start():2323] atexit reg
+2024-04-03 00:29:56,026 INFO    Thread-235:11844 [wandb_run.py:_redirect():2178] redirect: wrap_raw
+2024-04-03 00:29:56,026 INFO    Thread-235:11844 [wandb_run.py:_redirect():2243] Wrapping output streams.
+2024-04-03 00:29:56,026 INFO    Thread-235:11844 [wandb_run.py:_redirect():2268] Redirects installed.
+2024-04-03 00:29:56,027 INFO    Thread-235:11844 [wandb_init.py:init():848] run started, returning control to user process
+2024-04-03 00:29:56,129 INFO    Thread-235:11844 [wandb_run.py:_finish():2052] finishing run duisburg-essen-university/MLP/r5k51t6k
+2024-04-03 00:29:56,129 INFO    Thread-235:11844 [wandb_run.py:_atexit_cleanup():2292] got exitcode: 0
+2024-04-03 00:29:56,130 INFO    Thread-235:11844 [wandb_run.py:_restore():2275] restore
+2024-04-03 00:29:56,130 INFO    Thread-235:11844 [wandb_run.py:_restore():2281] restore done
+2024-04-03 00:30:01,953 INFO    Thread-235:11844 [wandb_run.py:_footer_history_summary_info():3920] rendering history
+2024-04-03 00:30:01,953 INFO    Thread-235:11844 [wandb_run.py:_footer_history_summary_info():3952] rendering summary
+2024-04-03 00:30:01,962 INFO    Thread-235:11844 [wandb_run.py:_footer_sync_info():3879] logging synced files

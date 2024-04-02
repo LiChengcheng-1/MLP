@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_config.py", line 162, in __getattr__
+    return self.__getitem__(key)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_config.py", line 130, in __getitem__
+    return self._items[key]
+KeyError: 'hidden_size'
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "E:\lesson\MLP\MLP_Test Task\src\train.py", line 61, in sweep
+    model = Model(inputs_size=inputs_size, hidden_size=config.hidden_size)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\wandb\sdk\wandb_config.py", line 164, in __getattr__
+    raise AttributeError(
+AttributeError: <class 'wandb.sdk.wandb_config.Config'> object has no attribute 'hidden_size'

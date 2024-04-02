@@ -1,0 +1,30 @@
+The18hour 2minute20second model's trainning process
+epoch=1 , running loss= 0.2011
+epoch=2 , running loss= 0.1240
+epoch=3 , running loss= 0.0688
+epoch=4 , running loss= 0.0381
+epoch=5 , running loss= 0.0077
+EarlyStopping counter: 1 out of 5
+epoch=6 , running loss= 0.0101
+epoch=7 , running loss= 0.0085
+epoch=8 , running loss= 0.0042
+EarlyStopping counter: 1 out of 5
+epoch=9 , running loss= 0.0051
+EarlyStopping counter: 2 out of 5
+epoch=10 , running loss= 0.0047
+EarlyStopping counter: 3 out of 5
+epoch=11 , running loss= 0.0047
+epoch=12 , running loss= 0.0046
+epoch=13 , running loss= 0.0044
+epoch=14 , running loss= 0.0041
+epoch=15 , running loss= 0.0041
+EarlyStopping counter: 1 out of 5
+epoch=16 , running loss= 0.0040
+EarlyStopping counter: 2 out of 5
+epoch=17 , running loss= 0.0041
+EarlyStopping counter: 3 out of 5
+epoch=18 , running loss= 0.0042
+EarlyStopping counter: 4 out of 5
+epoch=19 , running loss= 0.0042
+EarlyStopping counter: 5 out of 5
+Early stopping

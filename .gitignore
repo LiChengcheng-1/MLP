@@ -1,5 +1,6 @@
-<<<<<<< HEAD
 .idea/
-=======
-/.idea/
->>>>>>> origin/main
+checkpoint/
+src/checkpoint.pt
+src/__pycache__
+data/__pycache__
+src/wandb/

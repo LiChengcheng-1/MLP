@@ -1,0 +1,12 @@
+
+The 34 minute model's trainning process
+Traceback (most recent call last):
+  File "E:\lesson\MLP\MLP_Test Task\src\main.py", line 112, in <module>
+    multi_train()
+  File "E:\lesson\MLP\MLP_Test Task\src\main.py", line 92, in multi_train
+    running_loss_array,val_loss_aray,model= train_val(timestamp,adjust_lr,inputs_size)
+  File "E:\lesson\MLP\MLP_Test Task\src\main.py", line 66, in train_val
+    val_loss, val_loss_aray= validation(model,criterion,validation_loader)
+  File "E:\lesson\MLP\MLP_Test Task\src\validation.py", line 14, in validation
+    running_loss_aray = np.append(running_loss_aray, running_loss.item())
+AttributeError: 'float' object has no attribute 'item'

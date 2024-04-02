@@ -1,0 +1,59 @@
+The 47 minute model's trainning process
+epoch=1 , running loss= 0.2270
+epoch=2 , running loss= 0.1035
+epoch=3 , running loss= 0.0569
+epoch=4 , running loss= 0.0206
+EarlyStopping counter: 1 out of 5
+epoch=5 , running loss= 0.0068
+EarlyStopping counter: 2 out of 5
+epoch=6 , running loss= 0.0124
+epoch=7 , running loss= 0.0059
+EarlyStopping counter: 1 out of 5
+epoch=8 , running loss= 0.0047
+EarlyStopping counter: 2 out of 5
+epoch=9 , running loss= 0.0052
+EarlyStopping counter: 3 out of 5
+epoch=10 , running loss= 0.0045
+epoch=11 , running loss= 0.0045
+epoch=12 , running loss= 0.0044
+epoch=13 , running loss= 0.0042
+EarlyStopping counter: 1 out of 5
+epoch=14 , running loss= 0.0040
+EarlyStopping counter: 2 out of 5
+epoch=15 , running loss= 0.0042
+EarlyStopping counter: 3 out of 5
+epoch=16 , running loss= 0.0040
+EarlyStopping counter: 4 out of 5
+epoch=17 , running loss= 0.0041
+EarlyStopping counter: 5 out of 5
+Early stopping
+The 47 minute model's trainning process
+epoch=1 , running loss= 0.2637
+epoch=2 , running loss= 0.1349
+EarlyStopping counter: 1 out of 5
+epoch=3 , running loss= 0.1035
+EarlyStopping counter: 2 out of 5
+epoch=4 , running loss= 0.0998
+epoch=5 , running loss= 0.0916
+epoch=6 , running loss= 0.0834
+epoch=7 , running loss= 0.0725
+epoch=8 , running loss= 0.0466
+epoch=9 , running loss= 0.0148
+EarlyStopping counter: 1 out of 5
+epoch=10 , running loss= 0.0058
+EarlyStopping counter: 2 out of 5
+epoch=11 , running loss= 0.0058
+EarlyStopping counter: 3 out of 5
+epoch=12 , running loss= 0.0056
+EarlyStopping counter: 4 out of 5
+epoch=13 , running loss= 0.0056
+EarlyStopping counter: 5 out of 5
+Early stopping
+Traceback (most recent call last):
+  File "E:\lesson\MLP\MLP_Test Task\src\main.py", line 112, in <module>
+    multi_train()
+  File "E:\lesson\MLP\MLP_Test Task\src\main.py", line 87, in multi_train
+    os.makedirs(file_name)
+  File "E:\anaconda3\envs\MLP\lib\os.py", line 223, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: '../checkpoint/2024-04-02_16-47-35'
