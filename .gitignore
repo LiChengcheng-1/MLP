@@ -1,6 +1,11 @@
 .idea/
 checkpoint/
+<<<<<<< HEAD
 src/checkpoint.pt
 src/__pycache__
 data/__pycache__
 src/wandb/
+=======
+src/__pycache__
+src/checkpoint.pt
+>>>>>>> 651d2885f0bd7e7a61ec6e358448b74be3552398

@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 import torch
 from model import Model
 from data_process import inputs_size,dataset_train
 import wandb
 from torch.utils.data import DataLoader
+=======
+>>>>>>> 651d2885f0bd7e7a61ec6e358448b74be3552398
 
 #training model
 def train(model,criterion,optimizer,train_loader):
@@ -11,11 +14,16 @@ def train(model,criterion,optimizer,train_loader):
     for _,data in enumerate(train_loader):
         inputs,labels = data
         y_pred = model(inputs)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 651d2885f0bd7e7a61ec6e358448b74be3552398
         batch_loss = criterion(y_pred,labels)
         optimizer.zero_grad()
         batch_loss.backward()
         optimizer.step()
         running_loss += batch_loss.item()
+<<<<<<< HEAD
     running_loss = running_loss/len(train_loader)
     return running_loss
 
@@ -67,3 +75,15 @@ if __name__ == '__main__':
                 wandb.log({"epoch": epoch, "running_loss": running_loss})
 
     wandb.agent(sweep_id, sweep)
+=======
+=======
+        loss = criterion(y_pred,labels)
+        optimizer.zero_grad()
+        loss.backward()
+
+        optimizer.step()
+        running_loss += loss.item()
+>>>>>>> efc809b30616d9a2f2ba5a4b88ce989dd4eee2b0
+    running_loss = running_loss/len(train_loader)
+    return running_loss
+>>>>>>> 651d2885f0bd7e7a61ec6e358448b74be3552398
