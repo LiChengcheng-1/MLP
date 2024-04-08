@@ -6,7 +6,11 @@ class Model(torch.nn.Module):
         super(Model,self).__init__()
         # self.hidden_layers = torch.nn.ModuleList(
         # [torch.nn.Linear(hidden_size[i], hidden_size[i + 1]) for i in range(self.num_hidden_layers - 1)]
+<<<<<<< HEAD
         # ) he
+=======
+        # )
+>>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
         self.linear1 = torch.nn.Linear(inputs_size, hidden_size)
         self.linear2 = torch.nn.Linear(hidden_size, hidden_size)
         self.linear3 = torch.nn.Linear(hidden_size, hidden_size)

@@ -3,4 +3,12 @@ checkpoint/
 src/checkpoint.pt
 src/__pycache__
 data/__pycache__
+<<<<<<< HEAD
 src/wandb/
+=======
+data/12_30 bis 13_30 Uhr Umf + Vega.xlsx
+src/wandb/
+src/__pycache__
+src/checkpoint.pt
+
+>>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
