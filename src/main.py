@@ -1,87 +1,136 @@
 import torch
 import numpy as np
 from src.earlystopping import EarlyStopping
-from src.data_process import dataset_train,dataset_test,dataset_val,inputs_size
+from src.data_process import dataset_train,dataset_test,dataset_val,inputs_size,scaler_input,scaler_label
 from torch.utils.data import DataLoader
 from src.model import Model
-from plot import prediction_label_view
+from plot import prediction_label_view,loss_view
 from train import train
 from validation import validation
+from utility import adjust_lr
+import time
+import os
+import argparse
+import wandb
 
-#test
-def test(model,criterion):
+
+
+# test
+def test(model,criterion,test_loader):
     model.eval()
-    test_loss = 0
-
+    running_loss = 0
     with torch.no_grad():
-        for data, target in test_loader:
-            output = model(data)
+        for _,data in enumerate(test_loader):
+            inputs ,target = data
+            output = model(inputs)
+
+            #anti-normalization
+            output =torch.tensor(scaler_label.inverse_transform(output)).float()
+            target = torch.tensor(scaler_label.inverse_transform(target)).float()
+
             loss = criterion(output, target)
-            test_loss += loss.item()
-        test_loss = test_loss/len(test_loader)
-    return test_loss
+            running_loss += loss.item()
+        running_loss = running_loss/len(test_loader)
+    return running_loss
 
 
-def adjust_lr(epoch,optimizer):
-    # optimize lr
-    step = [10, 20, 30, 40]
-    base_lr = 0.1
-    lr = base_lr * (0.1 ** np.sum(epoch >= np.array(step)))
-    for params_group in optimizer.param_groups:
-        params_group['lr'] = lr
-    return lr
 
 
-def main(num_model,model,adjust_lr):
-    #hyperparameters
-    epoch = 100
+def train_val(timestamp,adjust_lr,inputs_size):
+
+   #prepare the model,criterion,optimizer
     criterion = torch.nn.MSELoss(reduction='mean')
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.1, nesterov=True, momentum=0.9)
+    model = Model(inputs_size=inputs_size, hidden_size=wandb.config["hidden_size"])
+    optimizer = torch.optim.SGD(model.parameters(), wandb.config["lr"], nesterov=True, momentum=0.9)
+
+    # load data
+    train_loader = DataLoader(dataset=dataset_train, batch_size=wandb.config["batch_size"], shuffle=True)
+    validation_loader = DataLoader(dataset=dataset_val, batch_size=wandb.config["batch_size"], shuffle=False)
+
+    #start training and validation, record the loss
     early_stopping = EarlyStopping(patience=5)
     running_loss_array = np.array([])
+    val_loss_array = np.array([])
     best_loss = 100.0
 
-    for epoch in range(1,epoch+1):
-        adjust_lr(epoch,optimizer)
 
+    for epoch in range(1,wandb.config["epoch"]+1):
+
+        adjust_lr(epoch,optimizer,wandb.config["lr"])
         running_loss= train(model,criterion,optimizer,train_loader)
-        val_loss, val_loss_aray= validation(model,criterion,validation_loader)
+        wandb.log({"epoch":epoch,"running_loss":running_loss})
 
+        val_loss= validation(model,criterion,validation_loader)
+        wandb.log({"epoch":epoch,"validation loss":val_loss})
         running_loss_array= np.append(running_loss_array, running_loss)
+        val_loss_array= np.append(val_loss_array, val_loss)
+
         early_stopping(val_loss, model)
         if val_loss < best_loss:
             best_loss = val_loss
-            torch.save(model.state_dict(), f'../checkpoint/checkpoint_{num_model}.pt')
+            torch.save(model.state_dict(), f'../checkpoint/{timestamp}/checkpoint.pt')
         if early_stopping.early_stop:
             print("Early stopping")
             break
         print(f'epoch={epoch} , running loss={running_loss : .4f}')
-    return running_loss_array,val_loss_aray
+        if epoch % 2 == 0:
+            print(f'validation loss:{val_loss}')
 
-def multi_train(inputs_size):
-    # train ten times and get ten models, choose the best one
-    criterion = torch.nn.MSELoss(reduction='mean')
-    best_loss = 1
-    best_model = 0
-    model = Model(inputs_size)
-    for num_model in range(1, 11):
-        model = Model(inputs_size)
-        print(f"The {num_model} model's trainning process ")
-        main(num_model, model)
-        test_loss = test(model, criterion)
-        if test_loss < best_loss:
-            best_loss = test_loss
-            best_model = num_model
-    print(f"The best model is {best_model} with test loss {best_loss}")
-    model.load_state_dict(torch.load(f'../checkpoint/checkpoint_{best_model}.pt'))
+    return running_loss_array,val_loss_array,model
 
-    prediction_label_view(model, test_loader)
-    # loss_view(running_loss_array, val_loss_aray)
+def main():
+    # train n times and get n models
+    for ep in range(args.experiment_number):
 
-#load data
-train_loader = DataLoader(dataset=dataset_train,batch_size=170,shuffle=True)
-test_loader = DataLoader(dataset=dataset_test,batch_size=170,shuffle=False)
-validation_loader = DataLoader(dataset=dataset_val,batch_size=170,shuffle=False)
+        criterion = torch.nn.MSELoss(reduction='mean')
+
+        # create the files with timestamp
+        time_now = time.time()
+        local_time = time.localtime(time_now)
+        timestamp = time.strftime("%Y-%m-%d_%H-%M-%S", local_time)
+        file_name = f"../checkpoint/{timestamp}"
+        os.makedirs(file_name)
+
+        # load test data
+        test_loader = DataLoader(dataset=dataset_test, batch_size=args.batch_size, shuffle=False)
+
+        #initialize the wandb project,start training and validation
+        wandb.init(project="MLP-3",config=args, name= f"{timestamp}",reinit=True)
+
+        #train model and test it
+        print(f"The {local_time.tm_hour}clock {local_time.tm_min}minute {local_time.tm_sec}second model's trainning process ")
+        running_loss_array,val_loss_aray,model= train_val(timestamp,adjust_lr,inputs_size)
+        test_loss = test(model,criterion,test_loader)
+        wandb.log({"test_loss":test_loss})
+        print(f"this model's test loss is :{test_loss} ")
+
+        # draw and save the images in each file
+        loss_view(running_loss_array, val_loss_aray,timestamp)
+        prediction_label_view(model, test_loader,timestamp)
+
+    wandb.finish()
+
 
 if __name__ == '__main__':
-    multi_train(inputs_size)
+    #hyperparameters
+    parser = argparse.ArgumentParser(description="about hyperparameter")
+    parser.add_argument("--epoch",type=int,default=100,help="epoch")
+    parser.add_argument("--lr", type=float,default=0.1, help="learning rate")
+    parser.add_argument("--hidden_size", type=int,default=20, help="hidden size")
+    parser.add_argument("--batch_size", type=int,default=170, help="batch size")
+    parser.add_argument("--experiment_number", type=int,default=10, help="experiment_number")
+    args = parser.parse_args()
+
+
+    isTrain = input("Do you want Train model (True) or Test model(False):")
+    if isTrain:
+        main()
+    else:
+        #test
+        test_loader = DataLoader(dataset=dataset_test, batch_size=wandb.config["batch_size"], shuffle=False)
+        criterion = torch.nn.MSELoss(reduction='mean')
+        model = Model(inputs_size=inputs_size, hidden_size=args.hidden_size)
+        timestamp =input("type the name of model you want to test")
+        model = model.load_state_dict(torch.load(f'../checkpoint/{timestamp}/checkpoint.pt'))
+        running_loss = test(model,criterion,test_loader)
+        print(f"the testing loss is {running_loss}")

@@ -1,6 +1,4 @@
 import pandas
-import torch
-from torch.utils.data import Dataset,DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from src.dataset import MLPDataset
@@ -44,8 +42,8 @@ X_train,X_val,y_train,y_val = train_test_split(X_train_and_val, y_train_and_val,
 scaler_input = MinMaxScaler(feature_range=(0, 1))
 scaler_label = MinMaxScaler(feature_range=(0, 1))
 
-X_train_fit =scaler_input.fit(X_train)
-y_train_fit =scaler_label.fit(y_train)
+scaler_input.fit(X_train)
+scaler_label.fit(y_train)
 
 X_train =scaler_input.transform(X_train)
 y_train =scaler_label.transform(y_train)
@@ -57,6 +55,7 @@ y_test =scaler_label.transform(y_test)
 
 #instante dataset
 dataset_train = MLPDataset(X_train,y_train)
-dataset_test = MLPDataset(X_test,y_test)
 dataset_val= MLPDataset(X_val,y_val)
+dataset_test = MLPDataset(X_test,y_test)
+
 

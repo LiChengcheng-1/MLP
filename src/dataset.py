@@ -1,7 +1,6 @@
 import torch
 from torch.utils.data import Dataset
 
-
 class MLPDataset(Dataset):
     def __init__(self,inputs,label):
 
