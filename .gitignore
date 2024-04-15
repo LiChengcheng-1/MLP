@@ -1,14 +1,9 @@
 .idea/
-checkpoint/
+Water_speed/checkpoint/
+Water_level/checkpoint/
+Water_speed/wandb/
+Water_level/wandb/
 src/checkpoint.pt
 src/__pycache__
-data/__pycache__
-<<<<<<< HEAD
+Water_speed/data/__pycache__
 src/wandb/
-=======
-data/12_30 bis 13_30 Uhr Umf + Vega.xlsx
-src/wandb/
-src/__pycache__
-src/checkpoint.pt
-
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118

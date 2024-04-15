@@ -1,6 +1,6 @@
 # Low-bit Integer-only Multilayer Perceptron Architecture for Flow Estimation
 
-## Overview
+## overview
 
 This repository contains code for a Multilayer Perceptron (MLP) model trained to predict the velocity of water flow in rivers based on multiple river flow meters. The model is implemented using Python and PyTorch.
 
@@ -12,47 +12,23 @@ The dataset is stored in the data folder. The features of the dataset are genera
 
 The MLP model consists of four multiple fully connected layers with ReLU activation functions.The model is trained using the stochastic gradient descent (SGD) optimizer with optional momentum and weight decay. The number of hidden layers and neurons in each layer can be customized based on requirements. We use the GridSearchCV method from sklearn.model_selection to perform hyperparameter optimization using grid search. The hyperparameters include: optimizer, learning_rate, hidden_layer_sizes, and batch_size.
 
-#### Data folder
+In the `main.py` file, it includes model training, model validation, model testing, and visualization of model results.
 
-In the `EDA.ipynb` file includes exploratory data analysis (EDA). The first step involved examining the data's information, including its name, non-null fields, data types, specific content of the first five rows, and summary statistics such as data count and frequency. The second step involved identifying and handling missing values. The third step involved assessing the linearity between labels and feature values by creating a heatmap to visualize correlations. Finally, in the fourth step, the necessary data was selected to prepare for subsequent analysis.
+In the `dataset.py` file, it includes data loading, exploratory data analysis (EDA), data normalization, dataset splitting, and instantiation of dataset objects.
 
-#### Src folder
+In the `model.py` file, we define the model architecture and use grid search to select hyperparameters.
 
-In the `dataset.py` file, it defines the dataset class.
+The `checkpoint.pt` file contains the saved parameters of the best model obtained during the training process.
 
-In the `data_process.py` file, includes data preparing, spliting dataset into train,validation,test , data normalization, instante dataset.
-
-In the `model.py` file, define the model architecture and use grid search to select hyperparameters.
-
-In the `plot.py` file, includes method for visulization of model's performance
-
-In the `train.py` file, includes train process
-
-In the `validation.py` file, includes validation process
-
-The `checkpoint` file includes the saved parameters of the models obtained during the training process and visual images for each model.
-
-The `earlystopping.py` file includes the code for early stopping.
-
-The `sweep.py` file includes choosing the hyperparameters, can monitor in the wandb.
-
-The `utility.py` file includes function we used.
-
-In the `main.py` file, it includes mode test , mode train and validation, multi-train to get several models, wandb monitor and visulize the models' situations , and can choose only for tesing. It create a checkpoint folder.
-
-#### Scripts folder
-
-The `main.sh` file includes the shell commands combining with argparse to flexibly change hyperparameters
+The `earlystopping.py` file contains the code for early stopping.
 
 ## Usage
 
 1. Prepare the dataset: Ensure that the dataset containing measurements from flow meters and corresponding velocity values is available in a suitable format.
-2. According to the requirement.txt, using conda to install the required tools and enviroments.
-3. Preprocess the data: Run the `data_process.py` to doing correlation analysis to find the most reletive feature. Normalize the input features and prepare the data loaders for training and evaluation.
-4. Define the model: Define the architecture of the MLP model including the number of input features, hidden layers, and output units.
-5. Train the model: Clicking on the `main.py` file will initiate the training, validation, and get model. It will run several experiments to get several models in checkpoint folder.
-6. Evaluate the model: Two visualizations will be generated: one for validation loss and training loss, and another for the prediction-label line plot. Base on wandb, you can real-time monitor the model.
-7. Change the hyperparameters: Using shell scripts to change the hyperparameters.
+2. Preprocess the data: Doing correlation analysis to find the most reletive feature. Normalize the input features and prepare the data loaders for training and evaluation.
+3. Define the model: Define the architecture of the MLP model including the number of input features, hidden layers, and output units.
+4. Train the model: Clicking on the `main.py` file will initiate the training, validation, and testing of the model.
+5. Evaluate the model: Two visualizations will be generated: one for validation loss and training loss, and another for the prediction-label line plot. Additionally, the average loss value generated by the current model during testing will be displayed.
 
 ## Dependencies
 

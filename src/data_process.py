@@ -1,11 +1,11 @@
 import pandas
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from src.dataset import MLPDataset
+from dataset import MLPDataset
 import numpy as np
 
 #according to the EDA's visualization, we process the data
-df = pandas.read_excel('../data/12_30 bis 13_30 Uhr Umf + Vega.xlsx')
+df = pandas.read_excel('../Water_speed/data/12_30 bis 13_30 Uhr Umf + Vega.xlsx')
 df.columns = df.iloc[7]
 
 #delete the missing value
@@ -40,22 +40,21 @@ X_train,X_val,y_train,y_val = train_test_split(X_train_and_val, y_train_and_val,
 
 # data normalization
 scaler_input = MinMaxScaler(feature_range=(0, 1))
-scaler_label = MinMaxScaler(feature_range=(0, 1))
+scaler_output = MinMaxScaler(feature_range=(0, 1))
 
 scaler_input.fit(X_train)
-scaler_label.fit(y_train)
+scaler_output.fit(y_train)
 
 X_train =scaler_input.transform(X_train)
-y_train =scaler_label.transform(y_train)
+y_train =scaler_output.transform(y_train)
 X_val =scaler_input.transform(X_val)
-y_val =scaler_label.transform(y_val)
+y_val =scaler_output.transform(y_val)
 X_test =scaler_input.transform(X_test)
-y_test =scaler_label.transform(y_test)
+y_test =scaler_output.transform(y_test)
 
 
 #instante dataset
 dataset_train = MLPDataset(X_train,y_train)
 dataset_val= MLPDataset(X_val,y_val)
 dataset_test = MLPDataset(X_test,y_test)
-
 

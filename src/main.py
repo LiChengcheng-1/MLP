@@ -1,23 +1,23 @@
 import torch
 import numpy as np
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from src.earlystopping import EarlyStopping
-from src.data_process import dataset_train,dataset_test,dataset_val,inputs_size,scaler_input,scaler_label
+from data_process import dataset_train,dataset_test,dataset_val,inputs_size,scaler_output
 from torch.utils.data import DataLoader
-from src.model import Model
+from model import Model
 from plot import prediction_label_view,loss_view
 from train import train
 from validation import validation
-from utility import adjust_lr
 import time
-import os
 import argparse
+from sklearn.metrics import mean_absolute_percentage_error,r2_score
 import wandb
-<<<<<<< HEAD
-
 
 
 # test
-def test(model,criterion,test_loader):
+def test(model,criterion,test_loader,scaler_output=scaler_output):
     model.eval()
     running_loss = 0
     with torch.no_grad():
@@ -26,214 +26,144 @@ def test(model,criterion,test_loader):
             output = model(inputs)
 
             #anti-normalization
-            output =torch.tensor(scaler_label.inverse_transform(output)).float()
-            target = torch.tensor(scaler_label.inverse_transform(target)).float()
+            output =torch.tensor(scaler_output.inverse_transform(output)).float()
+            target = torch.tensor(scaler_output.inverse_transform(target)).float()
+
+            # evaluate
+            mape_score = mean_absolute_percentage_error(target,output,multioutput="uniform_average")
+            R2_score = r2_score(target,output,multioutput="uniform_average")
 
             loss = criterion(output, target)
             running_loss += loss.item()
-=======
-
-
-
-#test
-def test(model,criterion,batch_size):
-    model.eval()
-    test_loader = DataLoader(dataset=dataset_test, batch_size=batch_size, shuffle=False)
-    running_loss = 0
-    with torch.no_grad():
-        for data, target in test_loader:
-            data = scaler_input.inverse_transform(data)
-            target =scaler_label.inverse_transform(target)
-            output = model(data)
-            batch_loss = criterion(output, target)
-            running_loss += batch_loss.item()
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
         running_loss = running_loss/len(test_loader)
-    return running_loss
+    return running_loss,mape_score,R2_score
 
 
-<<<<<<< HEAD
 
 
-def train_val(timestamp,adjust_lr,inputs_size):
+def train_val(file_name,inputs_size,train_loader,validation_loader,args):
 
    #prepare the model,criterion,optimizer
     criterion = torch.nn.MSELoss(reduction='mean')
-    model = Model(inputs_size=inputs_size, hidden_size=wandb.config["hidden_size"])
+    model = Model(inputs_size=inputs_size, hidden_size=wandb.config["hidden_size"],hidden_layers=args.hidden_layers)
     optimizer = torch.optim.SGD(model.parameters(), wandb.config["lr"], nesterov=True, momentum=0.9)
 
-    # load data
-    train_loader = DataLoader(dataset=dataset_train, batch_size=wandb.config["batch_size"], shuffle=True)
-    validation_loader = DataLoader(dataset=dataset_val, batch_size=wandb.config["batch_size"], shuffle=False)
 
     #start training and validation, record the loss
-=======
-def train_val(timestamp,adjust_lr,inputs_size):
-    #hyperparameters
-    global val_loss_aray
-    epoch = args.epoch
-    inputs_size = inputs_size
-    hidden_size = args.hidden_size
-    batch_size = args.batch_size
-    lr=args.lr
-    # save the hypterparameters in wandb
-    config = wandb.config
-    config.epoch = args.epoch
-    config.inputs_size = inputs_size
-    config.hidden_size = args.hidden_size
-    config.batch_size = args.batch_size
-    config.lr = args.lr
-   #prepare the model,criterion,optimizer
-    criterion = torch.nn.MSELoss(reduction='mean')
-    model = Model(inputs_size=inputs_size, hidden_size=hidden_size)
-    optimizer = torch.optim.SGD(model.parameters(), lr, nesterov=True, momentum=0.9)
-
-    # load data
-    train_loader = DataLoader(dataset=dataset_train, batch_size=batch_size, shuffle=True)
-    validation_loader = DataLoader(dataset=dataset_val, batch_size=batch_size, shuffle=False)
-    #start training and validation
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
     early_stopping = EarlyStopping(patience=5)
-    running_loss_array = np.array([])
+    training_loss_array = np.array([])
     val_loss_array = np.array([])
     best_loss = 100.0
-<<<<<<< HEAD
 
 
     for epoch in range(1,wandb.config["epoch"]+1):
 
-        adjust_lr(epoch,optimizer,wandb.config["lr"])
-        running_loss= train(model,criterion,optimizer,train_loader)
-        wandb.log({"epoch":epoch,"running_loss":running_loss})
+        # Dynamically adjust learning rate
+        step = [10, 20, 30, 40]
+        base_lr = wandb.config["lr"]
+        lr = base_lr * (0.1 ** np.sum(epoch >= np.array(step)))
+        for params_group in optimizer.param_groups:
+            params_group['lr'] = lr
+
+        training_loss= train(model,criterion,optimizer,train_loader)
+        wandb.log({"epoch_actual":epoch,"training_loss":training_loss})
 
         val_loss= validation(model,criterion,validation_loader)
-=======
-    wandb.watch(model, log="all")
-    for epoch in range(1,epoch+1):
-        adjust_lr(epoch,optimizer,lr)
-        running_loss= train(model,criterion,optimizer,train_loader)
-        wandb.log({"epoch":epoch,"running_loss":running_loss})
-        val_loss, val_loss_aray= validation(model,criterion,validation_loader)
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
-        wandb.log({"epoch":epoch,"validation loss":val_loss})
-        running_loss_array= np.append(running_loss_array, running_loss)
+        val_loss =round(val_loss, 5)
+        wandb.log({"validation loss":val_loss})
+        training_loss_array= np.append(training_loss_array, training_loss)
         val_loss_array= np.append(val_loss_array, val_loss)
 
         early_stopping(val_loss, model)
         if val_loss < best_loss:
             best_loss = val_loss
-            torch.save(model.state_dict(), f'../checkpoint/{timestamp}/checkpoint.pt')
+            torch.save(model.state_dict(), f"{file_name}/checkpoint.pt")
         if early_stopping.early_stop:
             print("Early stopping")
             break
-        print(f'epoch={epoch} , running loss={running_loss : .4f}')
-<<<<<<< HEAD
+        print(f'epoch={epoch} , training loss={training_loss : .4f}')
         if epoch % 2 == 0:
             print(f'validation loss:{val_loss}')
 
-    return running_loss_array,val_loss_array,model
+    return training_loss_array,val_loss_array,model
 
-def main():
+def main(train_loader,validation_loader,test_loader,name,args):
+    timestamp_list = []
     # train n times and get n models
     for ep in range(args.experiment_number):
 
         criterion = torch.nn.MSELoss(reduction='mean')
 
+
         # create the files with timestamp
         time_now = time.time()
         local_time = time.localtime(time_now)
         timestamp = time.strftime("%Y-%m-%d_%H-%M-%S", local_time)
-        file_name = f"../checkpoint/{timestamp}"
+        file_name = f"../{name}/checkpoint/lr_{args.lr} hidden_size_{args.hidden_size} batch_size_{args.batch_size}/{timestamp}"
         os.makedirs(file_name)
 
-        # load test data
-        test_loader = DataLoader(dataset=dataset_test, batch_size=args.batch_size, shuffle=False)
-
         #initialize the wandb project,start training and validation
-        wandb.init(project="MLP-3",config=args, name= f"{timestamp}",reinit=True)
+        wandb.init(project=args.project_name,name= f"{timestamp}",config=args,reinit=True,mode="online")
 
-        #train model and test it
+        #train model
         print(f"The {local_time.tm_hour}clock {local_time.tm_min}minute {local_time.tm_sec}second model's trainning process ")
-        running_loss_array,val_loss_aray,model= train_val(timestamp,adjust_lr,inputs_size)
-        test_loss = test(model,criterion,test_loader)
-        wandb.log({"test_loss":test_loss})
-        print(f"this model's test loss is :{test_loss} ")
+        training_loss_array,val_loss_aray,model= train_val(file_name,inputs_size,train_loader,validation_loader,args)
+
+        # collect the model
+        timestamp_list.append(timestamp)
+
+        test_loss, mape_score, R2_score = test(model, criterion, test_loader, scaler_output=scaler_output)
+        wandb.log({"test_loss": test_loss, "mape_score": mape_score, "R2_score": R2_score})
+        with open(
+                f"../{name}/checkpoint/lr_{args.lr} hidden_size_{args.hidden_size} batch_size_{args.batch_size}/{timestamp}/evaluate.txt",
+                "a") as file:
+            file.write(
+                f"the test loss of this model is {test_loss},MAPE metric 's result is {mape_score},R2 score is {R2_score}")
 
         # draw and save the images in each file
-        loss_view(running_loss_array, val_loss_aray,timestamp)
-        prediction_label_view(model, test_loader,timestamp)
+        loss_view(training_loss_array, val_loss_aray,file_name)
+        prediction_label_view(model, test_loader,file_name)
 
-    wandb.finish()
+    return timestamp_list
 
 
 if __name__ == '__main__':
     #hyperparameters
-=======
-    return running_loss_array,val_loss_aray,model
-
-def main():
-    # train n times and get n models
-    for ep in range(args.experiment_number):
-        # create the files with timestamp
-        time_now = time.time()
-        local_time = time.localtime(time_now)
-        timestamp = time.strftime("%Y-%m-%d_%H-%M-%S", local_time)
-        file_name = f"../checkpoint/{timestamp}"
-        os.makedirs(file_name)
-
-        #initialize the wandb project,start training and validation
-        wandb.init(project="MLP",name= f"{timestamp}",reinit=True)
-
-        print(f"The{local_time.tm_hour}hour {local_time.tm_min}minute{local_time.tm_sec}second model's trainning process ")
-        running_loss_array,val_loss_aray,model= train_val(timestamp,adjust_lr,inputs_size)
-
-        # draw and save the images in each file
-        loss_view(running_loss_array, val_loss_aray,timestamp)
-        test_loader = DataLoader(dataset=dataset_test, batch_size=args.batch_size, shuffle=False)
-        prediction_label_view(model, test_loader,timestamp)
-
-
-
-
-
-if __name__ == '__main__':
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
     parser = argparse.ArgumentParser(description="about hyperparameter")
     parser.add_argument("--epoch",type=int,default=100,help="epoch")
     parser.add_argument("--lr", type=float,default=0.1, help="learning rate")
     parser.add_argument("--hidden_size", type=int,default=20, help="hidden size")
-    parser.add_argument("--batch_size", type=int,default=170, help="batch size")
-<<<<<<< HEAD
-    parser.add_argument("--experiment_number", type=int,default=10, help="experiment_number")
+    parser.add_argument("--batch_size", type=int,default=85, help="batch size")
+    parser.add_argument("--experiment_number", type=int,default=2, help="experiment_number")
+    parser.add_argument("--project_name", type=str,default="MLP_Water_speed", help="project_name")
+    parser.add_argument("--mode", type=bool, default=True, help="Do you want Train model (True) or Test model(False)")
+    parser.add_argument("--hidden_layers", type=int, default=2, help="the number of hidden layers of the model")
     args = parser.parse_args()
 
+    # prepare the data
+    train_loader = DataLoader(dataset=dataset_train, batch_size=args.batch_size, shuffle=False)
+    validation_loader = DataLoader(dataset=dataset_val, batch_size=args.batch_size, shuffle=False)
+    test_loader = DataLoader(dataset=dataset_test, batch_size=args.batch_size, shuffle=False)
 
-    isTrain = input("Do you want Train model (True) or Test model(False):")
+    # prepare for test
+    criterion = torch.nn.MSELoss(reduction='mean')
+    model = Model(inputs_size=inputs_size, hidden_size=args.hidden_size,hidden_layers=args.hidden_layers)
+
+    isTrain = args.mode
     if isTrain:
-        main()
-    else:
-        #test
-        test_loader = DataLoader(dataset=dataset_test, batch_size=wandb.config["batch_size"], shuffle=False)
-=======
-    parser.add_argument("-n","--experiment_number", type=int,default=10, help="experiment_number")
-    args = parser.parse_args()
 
-    Flag = input("train model (True) or test model(False)")
-    if Flag:
-        wandb.init(project="MLP")
-        main()
+        # train and test
+        timestamp_list = main(train_loader,validation_loader,test_loader,name="Water_speed",args=args)
+
         wandb.finish()
+
     else:
         #test
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
-        criterion = torch.nn.MSELoss(reduction='mean')
-        model = Model(inputs_size=inputs_size, hidden_size=args.hidden_size)
-        timestamp =input("type the name of model you want to test")
-        model = model.load_state_dict(torch.load(f'../checkpoint/{timestamp}/checkpoint.pt'))
-<<<<<<< HEAD
-        running_loss = test(model,criterion,test_loader)
-        print(f"the testing loss is {running_loss}")
-=======
-        running_loss = test(model,criterion,batch_size=args.batch_size)
-        print(f"the testing loss is {running_loss}")
->>>>>>> 2f6387746555ee267c83b136b16d37e2beb3f118
+        name =input("type the name of model you want to test")
+        timestamp = input("type the timestamp of the model you want to test")
+        model = model.load_state_dict(torch.load(f"../Water_speed/checkpoint/{name}/{timestamp}/checkpoint.pt"))
+        test_loss,mape_score,R2_score= test(model,criterion,test_loader)
+        print(f"the testing loss is {test_loss}"
+              f"the MAPE metrics' result is {mape_score} "
+              f"the R2 metrics' result is {R2_score} "
+              )

@@ -1,0 +1,94 @@
+The 17clock 36minute 17second model's trainning process
+epoch=1 , running loss= 0.2231
+epoch=2 , running loss= 0.2261
+validation loss:0.31498274207115173
+epoch=3 , running loss= 0.2379
+epoch=4 , running loss= 0.2102
+validation loss:0.2943859100341797
+epoch=5 , running loss= 0.1972
+epoch=6 , running loss= 0.1722
+validation loss:0.2707850933074951
+epoch=7 , running loss= 0.1563
+epoch=8 , running loss= 0.1637
+validation loss:0.24742011725902557
+epoch=9 , running loss= 0.1455
+epoch=10 , running loss= 0.1668
+validation loss:0.2351614385843277
+epoch=11 , running loss= 0.1467
+epoch=12 , running loss= 0.1542
+validation loss:0.2329622507095337
+epoch=13 , running loss= 0.1391
+epoch=14 , running loss= 0.1570
+validation loss:0.23078538477420807
+epoch=15 , running loss= 0.1599
+epoch=16 , running loss= 0.1500
+validation loss:0.22859549522399902
+epoch=17 , running loss= 0.1553
+epoch=18 , running loss= 0.1401
+validation loss:0.22642108798027039
+epoch=19 , running loss= 0.1647
+epoch=20 , running loss= 0.1511
+validation loss:0.22522428631782532
+epoch=21 , running loss= 0.1519
+epoch=22 , running loss= 0.1517
+validation loss:0.22500815987586975
+epoch=23 , running loss= 0.1261
+epoch=24 , running loss= 0.1509
+validation loss:0.22479750216007233
+epoch=25 , running loss= 0.1630
+epoch=26 , running loss= 0.1508
+validation loss:0.2245837301015854
+epoch=27 , running loss= 0.1630
+epoch=28 , running loss= 0.1744
+validation loss:0.22436591982841492
+epoch=29 , running loss= 0.1513
+epoch=30 , running loss= 0.1613
+validation loss:0.22424526512622833
+epoch=31 , running loss= 0.1454
+epoch=32 , running loss= 0.1393
+validation loss:0.22422365844249725
+epoch=33 , running loss= 0.1656
+epoch=34 , running loss= 0.1490
+validation loss:0.2242019772529602
+epoch=35 , running loss= 0.1638
+epoch=36 , running loss= 0.1593
+validation loss:0.22418010234832764
+epoch=37 , running loss= 0.1725
+epoch=38 , running loss= 0.1688
+validation loss:0.22415776550769806
+epoch=39 , running loss= 0.1280
+epoch=40 , running loss= 0.1358
+validation loss:0.22414572536945343
+epoch=41 , running loss= 0.1499
+epoch=42 , running loss= 0.1433
+validation loss:0.22414365410804749
+epoch=43 , running loss= 0.1537
+epoch=44 , running loss= 0.1310
+validation loss:0.22414153814315796
+epoch=45 , running loss= 0.1454
+epoch=46 , running loss= 0.1277
+validation loss:0.22413945198059082
+epoch=47 , running loss= 0.1594
+epoch=48 , running loss= 0.1437
+validation loss:0.22413736581802368
+epoch=49 , running loss= 0.1473
+epoch=50 , running loss= 0.1491
+validation loss:0.22413530945777893
+Traceback (most recent call last):
+  File "../src/main.py", line 131, in <module>
+    main()
+  File "../src/main.py", line 106, in main
+    running_loss_array,val_loss_aray,model= train_val(file_name,adjust_lr,inputs_size)
+  File "../src/main.py", line 68, in train_val
+    early_stopping(val_loss, model)
+  File "E:\lesson\MLP\MLP_Test Task\src\earlystopping.py", line 44, in __call__
+    self.save_checkpoint(val_loss, model)
+  File "E:\lesson\MLP\MLP_Test Task\src\earlystopping.py", line 51, in save_checkpoint
+    torch.save(model.state_dict(), self.path)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\torch\serialization.py", line 628, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+  File "E:\anaconda3\envs\MLP\lib\site-packages\torch\serialization.py", line 502, in _open_zipfile_writer
+    return container(name_or_buffer)
+  File "E:\anaconda3\envs\MLP\lib\site-packages\torch\serialization.py", line 473, in __init__
+    super().__init__(torch._C.PyTorchFileWriter(self.name))
+KeyboardInterrupt

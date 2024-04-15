@@ -1,0 +1,151 @@
+The 16clock 8minute 45second model's trainning process
+epoch=1 , running loss= 0.3330
+epoch=2 , running loss= 0.3064
+validation loss:0.4137844443321228
+epoch=3 , running loss= 0.2726
+epoch=4 , running loss= 0.2480
+validation loss:0.3435913026332855
+epoch=5 , running loss= 0.2391
+epoch=6 , running loss= 0.2042
+validation loss:0.2736419439315796
+epoch=7 , running loss= 0.1649
+epoch=8 , running loss= 0.1558
+validation loss:0.21417754888534546
+epoch=9 , running loss= 0.1339
+epoch=10 , running loss= 0.1183
+validation loss:0.18704500794410706
+epoch=11 , running loss= 0.1180
+epoch=12 , running loss= 0.1177
+validation loss:0.18287032842636108
+epoch=13 , running loss= 0.1170
+epoch=14 , running loss= 0.1061
+validation loss:0.1789970099925995
+epoch=15 , running loss= 0.1154
+epoch=16 , running loss= 0.1207
+validation loss:0.1753501296043396
+epoch=17 , running loss= 0.1135
+epoch=18 , running loss= 0.1096
+validation loss:0.17178885638713837
+epoch=19 , running loss= 0.1141
+epoch=20 , running loss= 0.1061
+validation loss:0.16987909376621246
+epoch=21 , running loss= 0.1102
+epoch=22 , running loss= 0.1157
+validation loss:0.16954202950000763
+epoch=23 , running loss= 0.1160
+epoch=24 , running loss= 0.1122
+validation loss:0.16920079290866852
+epoch=25 , running loss= 0.1108
+epoch=26 , running loss= 0.1083
+validation loss:0.16886049509048462
+epoch=27 , running loss= 0.1063
+epoch=28 , running loss= 0.1079
+validation loss:0.1685277819633484
+epoch=29 , running loss= 0.1079
+epoch=30 , running loss= 0.1090
+validation loss:0.1683470755815506
+epoch=31 , running loss= 0.1079
+epoch=32 , running loss= 0.1084
+validation loss:0.16831418871879578
+epoch=33 , running loss= 0.1052
+epoch=34 , running loss= 0.1063
+validation loss:0.16828176379203796
+epoch=35 , running loss= 0.1000
+epoch=36 , running loss= 0.1105
+validation loss:0.1682497262954712
+epoch=37 , running loss= 0.1091
+epoch=38 , running loss= 0.1074
+validation loss:0.16821737587451935
+epoch=39 , running loss= 0.1122
+epoch=40 , running loss= 0.1047
+validation loss:0.16819949448108673
+epoch=41 , running loss= 0.1171
+epoch=42 , running loss= 0.1055
+validation loss:0.16819624602794647
+epoch=43 , running loss= 0.1093
+epoch=44 , running loss= 0.1053
+validation loss:0.1681930273771286
+epoch=45 , running loss= 0.1075
+epoch=46 , running loss= 0.1102
+validation loss:0.16818980872631073
+epoch=47 , running loss= 0.1061
+epoch=48 , running loss= 0.1088
+validation loss:0.16818661987781525
+epoch=49 , running loss= 0.1064
+epoch=50 , running loss= 0.1074
+validation loss:0.16818341612815857
+epoch=51 , running loss= 0.1103
+epoch=52 , running loss= 0.1077
+validation loss:0.1681801974773407
+epoch=53 , running loss= 0.1077
+epoch=54 , running loss= 0.1031
+validation loss:0.1681770235300064
+epoch=55 , running loss= 0.1106
+epoch=56 , running loss= 0.1072
+validation loss:0.16817381978034973
+epoch=57 , running loss= 0.1081
+epoch=58 , running loss= 0.1026
+validation loss:0.16817063093185425
+epoch=59 , running loss= 0.1134
+epoch=60 , running loss= 0.1108
+validation loss:0.16816744208335876
+epoch=61 , running loss= 0.1084
+epoch=62 , running loss= 0.1120
+validation loss:0.1681641936302185
+epoch=63 , running loss= 0.1051
+epoch=64 , running loss= 0.1161
+validation loss:0.16816096007823944
+epoch=65 , running loss= 0.1074
+epoch=66 , running loss= 0.1093
+validation loss:0.1681576818227768
+epoch=67 , running loss= 0.1004
+epoch=68 , running loss= 0.1033
+validation loss:0.1681545078754425
+epoch=69 , running loss= 0.1061
+epoch=70 , running loss= 0.1047
+validation loss:0.16815131902694702
+epoch=71 , running loss= 0.1082
+epoch=72 , running loss= 0.1058
+validation loss:0.16814814507961273
+epoch=73 , running loss= 0.1076
+epoch=74 , running loss= 0.1106
+validation loss:0.16814495623111725
+epoch=75 , running loss= 0.1122
+epoch=76 , running loss= 0.1196
+validation loss:0.168141707777977
+epoch=77 , running loss= 0.1161
+epoch=78 , running loss= 0.1177
+validation loss:0.16813834011554718
+epoch=79 , running loss= 0.1088
+epoch=80 , running loss= 0.1141
+validation loss:0.16813500225543976
+epoch=81 , running loss= 0.1073
+epoch=82 , running loss= 0.1133
+validation loss:0.16813163459300995
+epoch=83 , running loss= 0.1086
+epoch=84 , running loss= 0.1131
+validation loss:0.16812831163406372
+epoch=85 , running loss= 0.1057
+epoch=86 , running loss= 0.1120
+validation loss:0.16812504827976227
+epoch=87 , running loss= 0.1042
+epoch=88 , running loss= 0.1074
+validation loss:0.16812177002429962
+epoch=89 , running loss= 0.1062
+epoch=90 , running loss= 0.1119
+validation loss:0.16811855137348175
+epoch=91 , running loss= 0.1046
+epoch=92 , running loss= 0.1076
+validation loss:0.16811531782150269
+epoch=93 , running loss= 0.1083
+epoch=94 , running loss= 0.1104
+validation loss:0.168112114071846
+epoch=95 , running loss= 0.1118
+epoch=96 , running loss= 0.1085
+validation loss:0.16810889542102814
+epoch=97 , running loss= 0.1107
+epoch=98 , running loss= 0.1087
+validation loss:0.16810563206672668
+epoch=99 , running loss= 0.1041
+epoch=100 , running loss= 0.1103
+validation loss:0.16810236871242523
