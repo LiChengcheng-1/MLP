@@ -1,0 +1,34 @@
+The 16clock 12minute 48second model's trainning process
+epoch=1 , running loss= 0.2744
+epoch=2 , running loss= 0.1147
+validation loss:0.09723873436450958
+epoch=3 , running loss= 0.0700
+epoch=4 , running loss= 0.0762
+validation loss:0.05948846973478794
+epoch=5 , running loss= 0.0540
+epoch=6 , running loss= 0.0332
+validation loss:0.03238439932465553
+epoch=7 , running loss= 0.0215
+epoch=8 , running loss= 0.0111
+validation loss:0.0056665875017642975
+epoch=9 , running loss= 0.0059
+epoch=10 , running loss= 0.0050
+validation loss:0.003242943901568651
+epoch=11 , running loss= 0.0049
+epoch=12 , running loss= 0.0047
+validation loss:0.0030929105123504996
+epoch=13 , running loss= 0.0046
+epoch=14 , running loss= 0.0045
+validation loss:0.00303815386723727
+EarlyStopping counter: 1 out of 5
+epoch=15 , running loss= 0.0045
+EarlyStopping counter: 2 out of 5
+epoch=16 , running loss= 0.0045
+validation loss:0.0030595881398767233
+EarlyStopping counter: 3 out of 5
+epoch=17 , running loss= 0.0044
+EarlyStopping counter: 4 out of 5
+epoch=18 , running loss= 0.0044
+validation loss:0.0030817543156445026
+EarlyStopping counter: 5 out of 5
+Early stopping

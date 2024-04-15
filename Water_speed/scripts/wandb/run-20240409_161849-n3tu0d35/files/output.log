@@ -1,0 +1,17 @@
+
+The 16clock 18minute 44second model's trainning process
+epoch=1 , running loss= 0.1139
+epoch=2 , running loss= 0.0312
+validation loss:0.0030204285867512226
+EarlyStopping counter: 1 out of 5
+epoch=3 , running loss= 0.0093
+EarlyStopping counter: 2 out of 5
+epoch=4 , running loss= 0.0064
+validation loss:0.0037497974699363112
+EarlyStopping counter: 3 out of 5
+epoch=5 , running loss= 0.0048
+EarlyStopping counter: 4 out of 5
+epoch=6 , running loss= 0.0042
+validation loss:0.003393859136849642
+EarlyStopping counter: 5 out of 5
+Early stopping
